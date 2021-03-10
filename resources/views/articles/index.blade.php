@@ -19,20 +19,6 @@
 </head>
 
 <body>
-    <div class="background">
-        <div class="ellipse">
-            <svg class="background--ellipse-1" width="543" height="482" viewBox="0 0 543 482" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="271.036" cy="240.521" rx="225.088" ry="174.032" transform="rotate(-20 271.036 240.521)"
-                    fill="#DC143C" />
-            </svg>
-            <svg class="background--ellipse-2" width="535" height="477" viewBox="0 0 535 477" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="267.81" cy="238.349" rx="221.421" ry="172.501" transform="rotate(-20 267.81 238.349)"
-                    fill="#E5E5E5" />
-            </svg>
-        </div>
-    </div>
     <!-- Header -->
     <header>
         <nav class="navbar navbar-expand-lg navbar-light position-absolute w-100">
@@ -42,7 +28,6 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <!-- <a class="navbar-brand position-absolute w-100" href="#">Aida</a> -->
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto me-lg-0 ms-lg-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -55,43 +40,33 @@
     </header>
 
     <!-- Main -->
-    <main class="d-flex flex-column align-items-center py-5 container">
-
-        <div class="mt-n4 w-100 d-flex flex-column flex-lg-row align-items-center gap-5">
-            <div class="d-flex justify-content-end logo">
-                <img class="img-fluid mx-auto d-block logo-mini" src="{{ asset('/images/logo-negative.png') }}"
-                    alt="AIDA">
-            </div>
-            <div class="d-flex justify-content-end logo-inverse">
-                <img class="img-fluid mx-auto d-block logo-mini" src="{{ asset('/images/logo.png') }}" alt="AIDA">
-            </div>
-            <div class="mt-1 mt-lg-0 bg-light rounded rounded-3 shadow-sm w-100 border border-1">
-                <form>
-                    <div class="input-group">
-                        <input type="search" name="search" placeholder="Search" aria-describedby="button-addon1"
-                            class="form-control border-0 rounded-3 bg-transparent">
-                        <div class="input-group-append">
-                            <button id="button-addon1" type="submit" class="btn btn-link text-primary rounded-3"><i
-                                    class="fa fa-search"></i></button>
+    <main class="h-100 pt-5 container">
+        <div class="row g-4">
+            @forelse ($articles as $article)
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $article->title }}</h5>
+                            <a href="{{ route('articles.edit', [$article]) }}" class="card-link">Edit</a>
+                            <form class="d-inline-block ms-3" action="{{ route('articles.destroy', [$article]) }}"
+                                method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="card-link p-0 text-danger bg-transparent border-0">Delete</button>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <p class="card-text text-muted">{{ $article->updated_at->diffForHumans() }}</p>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            @empty
+                <h4>Create your first Article</h4>
+            @endforelse
         </div>
-        <div class="card mt-4 w-100 rounded rounded-3 shadow-sm">
-            <div class="card-body">
-
-            </div>
-            {{-- <div class="card-footer text-muted d-flex gap-3 justify-content-end">
-                <div>
-                    <i class="far fa-thumbs-up"></i>
-                    <span class="mr-3">19</span>
-                </div>
-                <div>
-                    <i class="far fa-thumbs-down"></i>
-                    <span>19</span>
-                </div>
-            </div> --}}
+        <div class="mt-3 w-100">
+            <a href="{{ route('articles.create') }}" class="btn btn-primary w-100">Create New Article</a>
         </div>
     </main>
 
@@ -108,6 +83,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
     -->
+
+    <script src="https://cdn.tiny.cloud/1/juquc6k10cad63k4auyrcu896on35y74b6uv19gzkfvb3vh6/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
 </body>
 
 </html>

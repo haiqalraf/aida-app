@@ -41,15 +41,17 @@
 
     <!-- Main -->
     <main class="d-flex flex-column align-items-center h-100 pt-5 container-fluid">
-        <h2 class="mb-5">INPUT DATA ARTIKEL</h2>
-        <form action="">
+        <h2 class="mb-5">Crete Article</h2>
+        <form action="{{ route('articles.store') }}" method="POST">
+            @csrf
+            @method("POST")
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Judul Artikel">
+                <input type="text" class="form-control" name="title" placeholder="Judul Artikel" required>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-                <textarea name="content" class="form-control my-editor" rows="15"></textarea>
+                <textarea name="body" class="form-control my-editor" rows="15"></textarea>
             </div>
             <button type="submit" class="btn btn-primary w-100">Submit</button>
         </form>
@@ -113,22 +115,6 @@
         tinymce.init(editor_config);
 
     </script>
-</body>
-
-</html>
-
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <title>CKEditor</title>
-    <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
-</head>
-
-<body>
-
 </body>
 
 </html>
