@@ -11,15 +11,21 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
+        'username',
+        'full_name',
         'email',
         'password',
+        'phone_number',
+        'birth_date',
+        'gambar'
     ];
 
     /**
@@ -39,5 +45,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'birth_date' => 'date'
+
     ];
+
+    public function getGambar()
+    {
+        if (!$this->gambar) {
+            return asset('images/blank.jpg');
+        }
+        return asset('images/' . $this->gambar);
+    }
 }

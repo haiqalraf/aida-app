@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
-use App\Models\Article;
 use UniSharp\LaravelFilemanager\Lfm;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +18,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('search.main');
+})->name('search.main');
+
+Route::get('/result', function () {
     return view('search.result');
-});
+})->name('search.result');
 
 Route::group(['prefix' => 'laravel-filemanager'], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
+    Lfm::routes();
 });
 
 Route::prefix('articles')->group(function () {
@@ -32,3 +37,19 @@ Route::prefix('articles')->group(function () {
     Route::delete('/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
     Route::post('/', [ArticleController::class, 'store'])->name('articles.store');
 });
+
+Route::get('/setting2', 'App\Http\Controllers\UserController@setting2')->name('admin.setting');
+Route::post('/update', 'App\Http\Controllers\UserController@update')->name('admin.update');
+Route::get('/gambar', 'App\Http\Controllers\UserController@gambar')->name('admin.avatar');
+Route::post('/update2', 'App\Http\Controllers\UserController@update2')->name('admin.avatar.update');
+Route::put('/avatar', 'App\Http\Controllers\UserController@avatar')->name('admin.avatar.delete');
+
+Route::get('/help', function () {
+    return view('admin.help');
+})->name('admin.help');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');

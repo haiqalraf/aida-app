@@ -67,6 +67,10 @@ body {
     margin-top: -2rem !important;
 }
 
+.logo {
+    max-width: 64px;
+}
+
 .logo-mini {
     max-width: 80px;
     /* margin-top: 150px; */
